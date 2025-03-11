@@ -12,13 +12,10 @@ const dbConfig = {
     ssl: { rejectUnauthorized: false }
 };
 
-// PostgreSQL Connection Pool
-const pool = new Pool(dbConfig);
-
 /**
  * AWS Lambda Handler
  */
-export async function handler(): Promise<void> {
+export async function handler(): Promise<{ statusCode: number; body: string }> {
 
     const location = { latitude: -33.856784, longitude: 151.215297 };
     try {
@@ -27,7 +24,10 @@ export async function handler(): Promise<void> {
         const apiResponseData = await fetchSolcastData(location);
         if (!apiResponseData || apiResponseData.length === 0) {
             console.error("No data fetched. Exiting...");
-            return;
+            return {
+                statusCode: 500,
+                body: JSON.stringify({ message: "No data fetched from Solcast." }),
+            };
         }
         console.log("Data fetched successfully!");
         console.log(typeof apiResponseData)
@@ -41,9 +41,15 @@ export async function handler(): Promise<void> {
         console.log("Storing data in PostgreSQL...");
         await storeData(processedData);
         console.log("Data processing and storage complete!");
+        return {
+            statusCode: 200,
+            body: JSON.stringify({ message: "Success! Data processed and stored." }),
+        };
     } catch (error) {
         console.error("Error in Lambda function:", error);
-    } finally {
-        await pool.end();
+        return {
+            statusCode: 500,
+            body: JSON.stringify({ message: "Internal Server Error", error}),
+        };
     }
 }
