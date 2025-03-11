@@ -1,7 +1,7 @@
 import axios from "axios";
 import dotenv from "dotenv";
-import { SolcastApiResponse } from "../interfaces/Solcast";
-import { Location } from "../interfaces/Solcast";
+import { SolcastApiResponse } from "../interfaces/solcasts";
+import { Location } from "../interfaces/solcasts";
 
 dotenv.config();
 

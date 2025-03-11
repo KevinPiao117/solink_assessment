@@ -1,11 +1,26 @@
+import { Pool } from "pg";
 import { fetchSolcastData } from "./api/fetchSolcastData";
-import { processSolcastData } from "./utils/process_data";
-import { storeData } from "./database/insert_data";
-import { Location } from "./interfaces/Solcast";
+import { processSolcastData } from "./utils/processData";
+import { storeData } from "./database/insertData";
 
+const dbConfig = {
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_NAME,
+    password: process.env.DB_PASSWORD,
+    port: Number(process.env.DB_PORT),
+    ssl: { rejectUnauthorized: false }
+};
 
+// PostgreSQL Connection Pool
+const pool = new Pool(dbConfig);
 
-async function main(location: Location): Promise<void> {
+/**
+ * AWS Lambda Handler
+ */
+export async function handler(): Promise<void> {
+
+    const location = { latitude: -33.856784, longitude: 151.215297 };
     try {
         // Fetching Data step
         console.log("Fetching Solcast data...");
@@ -27,9 +42,8 @@ async function main(location: Location): Promise<void> {
         await storeData(processedData);
         console.log("Data processing and storage complete!");
     } catch (error) {
-        console.error("An error occurred:", error);
+        console.error("Error in Lambda function:", error);
+    } finally {
+        await pool.end();
     }
 }
-
-const location = { latitude: -33.856784, longitude: 151.215297 };
-main(location).catch(console.error);

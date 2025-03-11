@@ -1,6 +1,6 @@
-import { SolcastApiResponse } from "../interfaces/Solcast";
-import { SolcastData } from "../interfaces/Solcast";
-import { Location } from "../interfaces/Solcast";
+import { SolcastApiResponse } from "../interfaces/solcasts";
+import { SolcastData } from "../interfaces/solcasts";
+import { Location } from "../interfaces/solcasts";
 
 /**
  * Convert kW to W and process Solcast data.

@@ -1,5 +1,5 @@
-import { pool } from "./db_helper";
-import { SolcastData } from "../interfaces/Solcast";
+import { pool } from "./dbHelper";
+import { SolcastData } from "../interfaces/solcasts";
 
 /**
  * Inserts Solcast API data into the PostgreSQL database.

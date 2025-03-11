@@ -1,4 +1,4 @@
-import { pool } from "./db_helper";
+import { pool } from "./dbHelper";
 
 async function testDB() {
     try {
