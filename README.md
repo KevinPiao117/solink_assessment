@@ -12,16 +12,18 @@ curl -X GET https://o2wq72vn7xl4enwrbzyxladmz40mnkzz.lambda-url.us-east-2.on.aws
 ### 1. clone the repository
 
 ### 2. install dependencies
-navigate to backend folder
+navigate to /backend folder
 ```
 cd backend
 npm install
 ```
 ### 3. setup PostgreSQL
 This can be done locally or through AWS RDS
+create a database and create a table with the sql file in /sql_commands
+
 
 ### 4. setup environmental variables
-create a .env file in backend folder that contains the following variables
+create a .env file in /backend folder that contains the following variables
 ```
 SOLCAST_API_URL=api_url
 DB_PASSWORD=database_password
@@ -32,6 +34,7 @@ DB_PORT=database_port
 
 ### 5. run the lambda function
 running the lambda function directly with typescript
+in the /backend folder run the following
 ```
 npx ts-node src/solcastLambda.ts
 ```
