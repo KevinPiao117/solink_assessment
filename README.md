@@ -10,6 +10,9 @@ curl -X GET https://o2wq72vn7xl4enwrbzyxladmz40mnkzz.lambda-url.us-east-2.on.aws
 
 ## Setup local version
 ### 1. clone the repository
+```
+git clone https://github.com/KevinPiao117/solink_assessment.git
+```
 
 ### 2. install dependencies
 navigate to /backend folder
