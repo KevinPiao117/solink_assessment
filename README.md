@@ -31,7 +31,9 @@ DB_PORT=database_port
 ```
 
 ### 5. run the lambda function
-running the lambda function directly
+running the lambda function directly with typescript
 ```
 npx ts-node src/solcastLambda.ts
 ```
+note: running locally will not repeat the process every 60 minute
+
