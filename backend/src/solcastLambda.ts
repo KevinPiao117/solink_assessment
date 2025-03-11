@@ -1,16 +1,6 @@
-import { Pool } from "pg";
 import { fetchSolcastData } from "./api/fetchSolcastData";
 import { processSolcastData } from "./utils/processData";
 import { storeData } from "./database/insertData";
-
-const dbConfig = {
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_NAME,
-    password: process.env.DB_PASSWORD,
-    port: Number(process.env.DB_PORT),
-    ssl: { rejectUnauthorized: false }
-};
 
 /**
  * AWS Lambda Handler
@@ -52,4 +42,10 @@ export async function handler(): Promise<{ statusCode: number; body: string }> {
             body: JSON.stringify({ message: "Internal Server Error", error}),
         };
     }
+}
+
+if (require.main === module) {
+    handler()
+        .then(response => console.log("Lambda Response:", response))
+        .catch(error => console.error("Lambda Error:", error));
 }
